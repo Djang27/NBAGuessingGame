@@ -1,6 +1,8 @@
 import random
 from pyfiglet import Figlet
+import tkinter as tk
 
+window = tk.Tk()
 
 def main():
     x = Figlet(font="rectangles")
