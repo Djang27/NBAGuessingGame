@@ -3,53 +3,31 @@ from pyfiglet import Figlet
 import tkinter as tk 
 import tkinter.ttk as ttk 
 window = tk.Tk()
+window.geometry("1000x800")
 
 titleScreen = tk.Label(
     text = "NBA PLAYER GUESSING GAME",
     width = 100,
-    height = 10
-
+    height = 10,
+    font = ("Helvetica", 20, "bold")
 )
 titleScreen.pack()
 
+statsDisplay = tk.Text()
+statsDisplay.pack()
+
+def startGame():
+    id, playername = generatePlayer()
+    playerStats = generateStats(id)
+    statsDisplay.delete(1.0, tk.END)
+    statsDisplay.insert(tk.END, "Player Career Stats:\n\n")
+    statsDisplay.insert(tk.END, str(playerStats[['SEASON','TEAM','PTS','AST','REB','STL','BLK','TOV','FG_PCT','3PT_PCT','MIN']]))
+
+startButton = tk.Button(text = "Start Game", command = startGame)
+startButton.pack()
+
 entry = tk.Entry(fg = "blue", width = 50,)
 entry.pack()
-
-playerGuess = entry.get()
-
-def main():
-    x = Figlet(font="rectangles")
-    print("=" * 60)
-    print(x.renderText("NBA PLAYER GUESSING GAME"))
-    print("=" * 60)
-
-
-    while True:
-        id, playerName = generatePlayer()
-        print("\n" + "-" * 60)
-        print("Generating a player... Get ready to guess!")
-        print("-" * 60)
-       
-        playerStats = generateStats(id)
-
-
-        print("\n" + "-" * 60)
-        print("Player Career Stats:")
-        print("-" * 60)
-        print(playerStats[['SEASON', 'TEAM', 'PTS', 'AST', 'REB', 'STL', 'BLK', 'TOV', 'FG_PCT','3PT_PCT', 'MIN']].to_string(index=False))
-        print("-" * 60)
-
-
-        guessCheck(playerStats, playerName)
-
-
-        print("\n" + "=" * 60)
-        playAgain = input("Play Again? (y/n): ").lower().strip()
-        print("=" * 60)
-        if playAgain != "y":
-            print("Thanks for playing!")
-            break
-
 
 def generatePlayer():
     from nba_api.stats.static import players
@@ -116,9 +94,6 @@ def hint(playerName):
         else:
             print(i, end=" ")
     print("\n" + "-" * 60)
-
-
-main()
 
 window.mainloop()
 
