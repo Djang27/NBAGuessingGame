@@ -1,8 +1,21 @@
 import random
 from pyfiglet import Figlet
-import tkinter as tk
-
+import tkinter as tk 
+import tkinter.ttk as ttk 
 window = tk.Tk()
+
+titleScreen = tk.Label(
+    text = "NBA PLAYER GUESSING GAME",
+    width = 100,
+    height = 10
+
+)
+titleScreen.pack()
+
+entry = tk.Entry(fg = "blue", width = 50,)
+entry.pack()
+
+playerGuess = entry.get()
 
 def main():
     x = Figlet(font="rectangles")
@@ -107,7 +120,5 @@ def hint(playerName):
 
 main()
 
-
-
-
+window.mainloop()
 
